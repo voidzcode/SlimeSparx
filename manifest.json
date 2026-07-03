@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "SlimeSparx",
+  "version": "1.23",
+  "description": "Fixes text selection on Sparx Reader + integrates Gemini AI. Fully MV3 compliant.",
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "sidePanel",
+    "scripting",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "https://*.sparxreader.co.uk/*",
+    "https://*.sparx-learning.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+}

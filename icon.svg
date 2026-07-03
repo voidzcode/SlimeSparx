@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Rounded Blue Background -->
+  <rect width="128" height="128" rx="28" fill="#1A73E8"/>
+  
+  <!-- White Wrench Graphic -->
+  <g fill="#FFFFFF">
+    <!-- Wrench Handle -->
+    <rect x="76" y="34" width="16" height="65" rx="8" transform="rotate(-45 84 66)" />
+    <!-- Wrench Head -->
+    <circle cx="44" cy="44" r="24" />
+    <!-- Jaw Cutout -->
+    <polygon points="44,44 24,24 14,34 34,54" fill="#1A73E8" />
+    <polygon points="44,44 24,24 34,14 54,34" fill="#1A73E8" />
+    <!-- Detail hole in handle -->
+    <circle cx="94" cy="94" r="5" fill="#1A73E8" />
+  </g>
+</svg>
