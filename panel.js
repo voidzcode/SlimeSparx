@@ -1,5 +1,6 @@
 let currentView = 'main';
 
+// Main Menu
 function showMainScreen() {
     document.body.innerHTML = `
         <div class="card">
@@ -15,6 +16,7 @@ function showMainScreen() {
     document.getElementById('mathsSolverBtn').addEventListener('click', showMathsSolver);
 }
 
+// Reader Solver
 function showReaderSolver() {
     document.body.innerHTML = `
         <div class="card">
@@ -38,6 +40,7 @@ function showReaderSolver() {
     document.getElementById('backMainBtn').addEventListener('click', showMainScreen);
 }
 
+// Maths Solver
 function showMathsSolver() {
     document.body.innerHTML = `
         <div class="card">
@@ -64,32 +67,49 @@ function showMathsSolver() {
     document.getElementById('backMainBtnMath').addEventListener('click', showMainScreen);
 }
 
+// Gemini embed
 function showGeminiInPanel() {
+    const isFromReader = document.getElementById('readerSolverBtn') !== null || 
+                        (document.querySelector('.header') && document.querySelector('.header').textContent.includes('Reader'));
+    
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column;">
             <div style="padding:10px 12px; background:#1a73e8; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
                 <span>Gemini AI</span>
-                <button id="backBtn">Back</button>
+                <button id="backBtnGemini" style="padding:6px 12px; font-size:13px; background:white; color:#1a73e8; border:none; border-radius:4px; cursor:pointer;">Back</button>
             </div>
             <iframe src="https://gemini.google.com/app" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
         </div>
     `;
-    document.getElementById('backBtn').addEventListener('click', showMathsSolver);
+    
+    document.getElementById('backBtnGemini').addEventListener('click', () => {
+        if (isFromReader) showReaderSolver();
+        else showMathsSolver();
+    });
 }
 
+// AI Commands embed
 function showAICommandsInPanel() {
+    const isFromReader = document.getElementById('readerSolverBtn') !== null || 
+                        (document.querySelector('.header') && document.querySelector('.header').textContent.includes('Reader'));
+    
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column;">
             <div style="padding:10px 12px; background:#34a853; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
                 <span>AI Commands</span>
-                <button id="backBtn">Back</button>
+                <button id="backBtnAI" style="padding:6px 12px; font-size:13px; background:white; color:#34a853; border:none; border-radius:4px; cursor:pointer;">Back</button>
             </div>
             <iframe src="https://sites.google.com/view/educationsmart/Q1W2/ai-commands" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
         </div>
     `;
-    document.getElementById('backBtn').addEventListener('click', showMathsSolver);
+    
+    document.getElementById('backBtnAI').addEventListener('click', () => {
+        if (isFromReader) showReaderSolver();
+        else showMathsSolver();
+    });
 }
 
+// Tab functions
 function openGeminiInTab() {
     chrome.runtime.sendMessage({ action: "open_gemini_tab", url: "https://gemini.google.com/app" });
 }
@@ -100,7 +120,6 @@ function openAICommandsInTab() {
 
 // Bookwork Notepad
 function showNotepad() {
-    console.log("Notepad opened");
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column; background:#f8f9fa;">
             <div style="padding:10px 12px; background:#34a853; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
@@ -121,16 +140,7 @@ function showNotepad() {
         chrome.storage.local.set({ bookworkNotes: textarea.value });
     });
 
-    const backBtn = document.getElementById('backBtnNotepad');
-    if (backBtn) {
-        console.log("Back button found, attaching listener");
-        backBtn.addEventListener('click', () => {
-            console.log("Back button clicked");
-            showMathsSolver();
-        });
-    } else {
-        console.error("Back button not found!");
-    }
+    document.getElementById('backBtnNotepad').addEventListener('click', showMathsSolver);
 }
 
 // Initialize
