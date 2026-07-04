@@ -1,14 +1,16 @@
-console.log("SlimeSparx: Advanced text selection enabled.");
+console.log("SlimeSparx: Text selection fix enabled.");
 
 const forceSelection = () => {
     const css = `
         * { 
             user-select: text !important; 
             -webkit-user-select: text !important; 
-            -moz-user-select: text !important; 
+            -moz-user-select: text !important;
         }
-        body, div, p, span, article, section, pre, code, textarea {
+        body, div, p, span, article, section, main, .content, .reader-container,
+        [class*="text"], [class*="content"], [class*="reader"] {
             user-select: text !important;
+            -webkit-user-select: text !important;
         }
     `;
 
@@ -16,23 +18,33 @@ const forceSelection = () => {
     if (!style) {
         style = document.createElement('style');
         style.id = 'slime-selection-css';
-        document.head.appendChild(style);
+        (document.head || document.documentElement).appendChild(style);
     }
     style.textContent = css;
 
-    document.querySelectorAll('*').forEach(el => {
+    const importantElements = document.querySelectorAll('body, main, article, section, div[class*="content"], div[class*="reader"], div[class*="text"]');
+    importantElements.forEach(el => {
         el.style.setProperty('user-select', 'text', 'important');
         el.style.setProperty('-webkit-user-select', 'text', 'important');
     });
 };
 
-// Multiple execution layers
 forceSelection();
-setTimeout(forceSelection, 300);
-setInterval(forceSelection, 1200);
+setTimeout(forceSelection, 200);
+setTimeout(forceSelection, 800);
 
-// Watch for dynamic content changes
-new MutationObserver(forceSelection).observe(document.documentElement, {
+let lastRun = 0;
+new MutationObserver(() => {
+    const now = Date.now();
+    if (now - lastRun > 600) {
+        lastRun = now;
+        forceSelection();
+    }
+}).observe(document.documentElement, {
     childList: true,
     subtree: true
 });
+
+window.addEventListener('load', forceSelection);
+
+console.log("SlimeSparx: Text selection monitoring active.");

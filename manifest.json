@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "SlimeSparx",
-  "version": "1.42",
-  "description": "Fixes text selection on Sparx Reader + integrates Gemini AI + AI Commands Library. Fully MV3 compliant.",
+  "version": "1.2",
+  "description": "Text selection fix for Sparx Reader with Gemini and AI Commands integration.",
   "icons": {
     "16": "icon.svg",
     "48": "icon.svg",
@@ -27,6 +27,16 @@
   "side_panel": {
     "default_path": "panel.html"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.sparxreader.co.uk/*",
+        "https://*.sparx-learning.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
   "declarative_net_request": {
     "rule_resources": [
       {
