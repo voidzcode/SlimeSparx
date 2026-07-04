@@ -1,1 +1,1 @@
-A repository aimed completely at making sparx reader easier and solvable with Gemini Ai (FREE!). This is a completely free, open-source project as I want more people to enhance this chrome extension!
+A repository aimed completely at making sparx reader easier and solvable with Gemini Ai (FREE!). This is a completely free, open-source project as I want more people to enhance this chrome extension! (If you experience any problems please put them in the "Issues" tab. Thanks!
