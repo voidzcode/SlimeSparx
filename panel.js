@@ -1,88 +1,139 @@
-let currentView = 'dashboard';
+let currentView = 'main';
 
-// Enhanced Dashboard View
-function showDashboard() {
+function showMainScreen() {
     document.body.innerHTML = `
         <div class="card">
-            <div class="header">SlimeSparx Dashboard</div>
-            <p>Sparx Reader text selection is active.<br>Choose how to use AI tools:</p>
+            <div class="header">SlimeSparx</div>
+            <p>Select a solver:</p>
             
-            <button id="geminiSideBtn">Open Gemini in Side Panel</button>
-            <button id="aiCommandsSideBtn" style="margin-top: 12px; background: #34a853;">Open AI Commands</button>
-            
-            <button id="geminiTabBtn" style="margin-top: 12px; background: #1a73e8;">Open Gemini in New Tab</button>
-            <button id="aiCommandsTabBtn" style="margin-top: 8px; background: #34a853;">Open AI Commands in New Tab</button>
+            <button id="readerSolverBtn" style="margin-bottom: 12px;">Sparx Reader Solver</button>
+            <button id="mathsSolverBtn">Sparx Maths Solver</button>
         </div>
     `;
 
-    // Re-attach all listeners
+    document.getElementById('readerSolverBtn').addEventListener('click', showReaderSolver);
+    document.getElementById('mathsSolverBtn').addEventListener('click', showMathsSolver);
+}
+
+function showReaderSolver() {
+    document.body.innerHTML = `
+        <div class="card">
+            <div class="header">Sparx Reader Solver</div>
+            <p>Text selection is active.</p>
+            
+            <button id="geminiSideBtn" style="margin-bottom: 8px;">Open Gemini in Side Panel</button>
+            <button id="aiCommandsSideBtn" style="margin-bottom: 8px;">Open AI Commands</button>
+            
+            <button id="geminiTabBtn" style="margin-bottom: 8px;">Open Gemini in New Tab</button>
+            <button id="aiCommandsTabBtn">Open AI Commands in New Tab</button>
+            
+            <button id="backMainBtn" style="margin-top: 16px; background: #666;">Back to Main Menu</button>
+        </div>
+    `;
+
     document.getElementById('geminiSideBtn').addEventListener('click', showGeminiInPanel);
     document.getElementById('aiCommandsSideBtn').addEventListener('click', showAICommandsInPanel);
-    
     document.getElementById('geminiTabBtn').addEventListener('click', openGeminiInTab);
     document.getElementById('aiCommandsTabBtn').addEventListener('click', openAICommandsInTab);
+    document.getElementById('backMainBtn').addEventListener('click', showMainScreen);
 }
 
-// Gemini Side Panel
-function showGeminiInPanel() {
+function showMathsSolver() {
     document.body.innerHTML = `
-        <div style="width:100%; height:100%; display:flex; flex-direction:column; background:#f8f9fa;">
-            <div style="padding:10px 12px; background:#1a73e8; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
-                <span>Gemini AI — Side Panel Mode</span>
-                <button id="backBtn" style="padding:6px 12px; font-size:13px; background:white; color:#1a73e8; border:none; border-radius:4px; cursor:pointer;">← Back</button>
-            </div>
-            <iframe id="geminiFrame" 
-                    src="https://gemini.google.com/app" 
-                    style="flex:1; border:none; width:100%;" 
-                    allow="clipboard-write; microphone; camera; geolocation; clipboard-read">
-            </iframe>
+        <div class="card">
+            <div class="header">Sparx Maths Solver</div>
+            <p>Choose AI assistance or notepad:</p>
+            
+            <button id="geminiSideBtnMath" style="margin-bottom: 8px;">Open Gemini in Side Panel</button>
+            <button id="aiCommandsSideBtnMath" style="margin-bottom: 8px;">Open AI Commands</button>
+            
+            <button id="geminiTabBtnMath" style="margin-bottom: 8px;">Open Gemini in New Tab</button>
+            <button id="aiCommandsTabBtnMath" style="margin-bottom: 16px;">Open AI Commands in New Tab</button>
+            
+            <button id="notepadBtn" style="background: #34a853;">Bookwork Notepad</button>
+            
+            <button id="backMainBtnMath" style="margin-top: 16px; background: #666;">Back to Main Menu</button>
         </div>
     `;
 
-    document.getElementById('backBtn').addEventListener('click', showDashboard);
+    document.getElementById('geminiSideBtnMath').addEventListener('click', showGeminiInPanel);
+    document.getElementById('aiCommandsSideBtnMath').addEventListener('click', showAICommandsInPanel);
+    document.getElementById('geminiTabBtnMath').addEventListener('click', openGeminiInTab);
+    document.getElementById('aiCommandsTabBtnMath').addEventListener('click', openAICommandsInTab);
+    document.getElementById('notepadBtn').addEventListener('click', showNotepad);
+    document.getElementById('backMainBtnMath').addEventListener('click', showMainScreen);
 }
 
-// AI Commands Side Panel
+function showGeminiInPanel() {
+    document.body.innerHTML = `
+        <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+            <div style="padding:10px 12px; background:#1a73e8; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
+                <span>Gemini AI</span>
+                <button id="backBtn">Back</button>
+            </div>
+            <iframe src="https://gemini.google.com/app" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
+        </div>
+    `;
+    document.getElementById('backBtn').addEventListener('click', showMathsSolver);
+}
+
 function showAICommandsInPanel() {
+    document.body.innerHTML = `
+        <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+            <div style="padding:10px 12px; background:#34a853; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
+                <span>AI Commands</span>
+                <button id="backBtn">Back</button>
+            </div>
+            <iframe src="https://sites.google.com/view/educationsmart/Q1W2/ai-commands" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
+        </div>
+    `;
+    document.getElementById('backBtn').addEventListener('click', showMathsSolver);
+}
+
+function openGeminiInTab() {
+    chrome.runtime.sendMessage({ action: "open_gemini_tab", url: "https://gemini.google.com/app" });
+}
+
+function openAICommandsInTab() {
+    chrome.runtime.sendMessage({ action: "open_ai_commands_tab", url: "https://sites.google.com/view/educationsmart/Q1W2/ai-commands" });
+}
+
+// Bookwork Notepad
+function showNotepad() {
+    console.log("Notepad opened");
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column; background:#f8f9fa;">
             <div style="padding:10px 12px; background:#34a853; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
-                <span>AI Commands Library</span>
-                <button id="backBtnAI" style="padding:6px 12px; font-size:13px; background:white; color:#34a853; border:none; border-radius:4px; cursor:pointer;">← Back</button>
+                <span>Bookwork Notepad</span>
+                <button id="backBtnNotepad" style="padding:6px 12px; font-size:13px; background:white; color:#34a853; border:none; border-radius:4px; cursor:pointer;">Back</button>
             </div>
-            <iframe id="aiCommandsFrame" 
-                    src="https://sites.google.com/view/educationsmart/Q1W2/ai-commands" 
-                    style="flex:1; border:none; width:100%;" 
-                    allow="clipboard-write; microphone; camera; geolocation; clipboard-read">
-            </iframe>
+            <textarea id="notepadArea" style="flex:1; padding:12px; border:none; font-family: monospace; font-size: 14px; resize:none; width:100%; box-sizing:border-box;" placeholder="Enter your bookwork notes here..."></textarea>
         </div>
     `;
 
-    document.getElementById('backBtnAI').addEventListener('click', showDashboard);
-}
-
-// Open Gemini in New Tab
-function openGeminiInTab() {
-    chrome.runtime.sendMessage({
-        action: "open_gemini_tab",
-        url: "https://gemini.google.com/app"
+    const textarea = document.getElementById('notepadArea');
+    
+    chrome.storage.local.get('bookworkNotes', (data) => {
+        textarea.value = data.bookworkNotes || '';
     });
-}
 
-// NEW: Open AI Commands in New Tab
-function openAICommandsInTab() {
-    chrome.runtime.sendMessage({
-        action: "open_ai_commands_tab",
-        url: "https://sites.google.com/view/educationsmart/Q1W2/ai-commands"
+    textarea.addEventListener('input', () => {
+        chrome.storage.local.set({ bookworkNotes: textarea.value });
     });
-}
 
-// Robust Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        showDashboard();
-    } catch (error) {
-        console.error("SlimeSparx: Failed to initialize dashboard", error);
-        document.body.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Error loading SlimeSparx.<br>Please check the console (F12).</div>`;
+    const backBtn = document.getElementById('backBtnNotepad');
+    if (backBtn) {
+        console.log("Back button found, attaching listener");
+        backBtn.addEventListener('click', () => {
+            console.log("Back button clicked");
+            showMathsSolver();
+        });
+    } else {
+        console.error("Back button not found!");
     }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    showMainScreen();
 });
