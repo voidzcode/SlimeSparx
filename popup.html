@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            width: 420px;
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+        .header {
+            padding: 12px;
+            background: #1a73e8;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        #iframe-container {
+            flex: 1;
+            position: relative;
+            border-top: 1px solid #ddd;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+        button {
+            padding: 10px 20px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        button:hover {
+            background: #185abc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">SlimeSparx</div>
+    
+    <div id="iframe-container">
+        <iframe src="https://gemini.google.com/" 
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals">
+        </iframe>
+    </div>
+    
+    <div class="footer">
+        <button onclick="openGeminiTab()">Open Gemini in New Tab</button>
+    </div>
+
+    <script>
+        function openGeminiTab() {
+            chrome.tabs.create({ url: "https://gemini.google.com/" });
+        }
+    </script>
+</body>
+</html>

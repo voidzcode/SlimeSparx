@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "SlimeSparx",
-  "version": "1.23",
-  "description": "Fixes text selection on Sparx Reader + integrates Gemini AI. Fully MV3 compliant.",
+  "version": "1.42",
+  "description": "Fixes text selection on Sparx Reader + integrates Gemini AI + AI Commands Library. Fully MV3 compliant.",
   "icons": {
     "16": "icon.svg",
     "48": "icon.svg",
@@ -17,6 +17,7 @@
   ],
   "host_permissions": [
     "https://gemini.google.com/*",
+    "https://sites.google.com/*",
     "https://*.sparxreader.co.uk/*",
     "https://*.sparx-learning.com/*"
   ],

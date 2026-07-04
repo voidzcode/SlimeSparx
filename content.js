@@ -1,4 +1,4 @@
-console.log("✅ SlimeSparx: Advanced text selection enabled.");
+console.log("SlimeSparx: Advanced text selection enabled.");
 
 const forceSelection = () => {
     const css = `
