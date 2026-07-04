@@ -7,13 +7,15 @@ function showMainScreen() {
             <div class="header">SlimeSparx</div>
             <p>Select a solver:</p>
             
-            <button id="readerSolverBtn" style="margin-bottom: 12px;">Sparx Reader Solver</button>
-            <button id="mathsSolverBtn">Sparx Maths Solver</button>
+            <button id="readerSolverBtn" style="margin-bottom: 8px;">Sparx Reader Solver</button>
+            <button id="mathsSolverBtn" style="margin-bottom: 8px;">Sparx Maths Solver</button>
+            <button id="scienceSolverBtn">Sparx Science Solver</button>
         </div>
     `;
 
     document.getElementById('readerSolverBtn').addEventListener('click', showReaderSolver);
     document.getElementById('mathsSolverBtn').addEventListener('click', showMathsSolver);
+    document.getElementById('scienceSolverBtn').addEventListener('click', showScienceSolver);
 }
 
 // Reader Solver
@@ -67,11 +69,32 @@ function showMathsSolver() {
     document.getElementById('backMainBtnMath').addEventListener('click', showMainScreen);
 }
 
-// Gemini embed
+// New: Sparx Science Solver
+function showScienceSolver() {
+    document.body.innerHTML = `
+        <div class="card">
+            <div class="header">Sparx Science Solver</div>
+            <p>Choose AI assistance:</p>
+            
+            <button id="geminiSideBtnScience" style="margin-bottom: 8px;">Open Gemini in Side Panel</button>
+            <button id="aiCommandsSideBtnScience" style="margin-bottom: 8px;">Open AI Commands</button>
+            
+            <button id="geminiTabBtnScience" style="margin-bottom: 8px;">Open Gemini in New Tab</button>
+            <button id="aiCommandsTabBtnScience">Open AI Commands in New Tab</button>
+            
+            <button id="backMainBtnScience" style="margin-top: 16px; background: #666;">Back to Main Menu</button>
+        </div>
+    `;
+
+    document.getElementById('geminiSideBtnScience').addEventListener('click', showGeminiInPanel);
+    document.getElementById('aiCommandsSideBtnScience').addEventListener('click', showAICommandsInPanel);
+    document.getElementById('geminiTabBtnScience').addEventListener('click', openGeminiInTab);
+    document.getElementById('aiCommandsTabBtnScience').addEventListener('click', openAICommandsInTab);
+    document.getElementById('backMainBtnScience').addEventListener('click', showMainScreen);
+}
+
+// Gemini embed (shared)
 function showGeminiInPanel() {
-    const isFromReader = document.getElementById('readerSolverBtn') !== null || 
-                        (document.querySelector('.header') && document.querySelector('.header').textContent.includes('Reader'));
-    
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column;">
             <div style="padding:10px 12px; background:#1a73e8; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
@@ -81,18 +104,14 @@ function showGeminiInPanel() {
             <iframe src="https://gemini.google.com/app" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
         </div>
     `;
-    
     document.getElementById('backBtnGemini').addEventListener('click', () => {
-        if (isFromReader) showReaderSolver();
-        else showMathsSolver();
+        // Return to the last solver screen (simple approach: default to main for now)
+        showMainScreen();
     });
 }
 
-// AI Commands embed
+// AI Commands embed (shared)
 function showAICommandsInPanel() {
-    const isFromReader = document.getElementById('readerSolverBtn') !== null || 
-                        (document.querySelector('.header') && document.querySelector('.header').textContent.includes('Reader'));
-    
     document.body.innerHTML = `
         <div style="width:100%; height:100%; display:flex; flex-direction:column;">
             <div style="padding:10px 12px; background:#34a853; color:white; font-weight:bold; display:flex; align-items:center; justify-content:space-between;">
@@ -102,10 +121,8 @@ function showAICommandsInPanel() {
             <iframe src="https://sites.google.com/view/educationsmart/Q1W2/ai-commands" style="flex:1; border:none; width:100%;" allow="clipboard-write; microphone; camera; geolocation; clipboard-read"></iframe>
         </div>
     `;
-    
     document.getElementById('backBtnAI').addEventListener('click', () => {
-        if (isFromReader) showReaderSolver();
-        else showMathsSolver();
+        showMainScreen();
     });
 }
 

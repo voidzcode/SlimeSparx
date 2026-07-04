@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "SlimeSparx",
-  "version": "2.3",
-  "description": "Text selection fix for Sparx Reader with Gemini and AI Commands integration.",
+  "version": "3.0",
+  "description": "Text selection fix for Sparx Reader with Gemini and AI Commands integration for Sparx Reader, Sparx Science and Sparx Maths.",
   "icons": {
     "16": "icon.svg",
     "48": "icon.svg",
